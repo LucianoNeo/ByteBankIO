@@ -1,4 +1,6 @@
-﻿class Program
+﻿using System.Text;
+
+class Program
 {
     static void Main(string[] args)
     {
@@ -19,11 +21,19 @@
 
         static void EscreverBuffer(byte[] buffer)
         {
+
+            var utf8 = new UTF8Encoding();
+
+            var texto = utf8.GetString(buffer);
+            Console.Write(texto);
+            /*
             foreach (var bytes in buffer)
             {
                 Console.Write(bytes);
                 Console.Write(" ");
-            }
+            }*/
+
+
         }
     }
 }
