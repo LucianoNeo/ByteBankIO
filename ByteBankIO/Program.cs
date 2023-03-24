@@ -1,43 +1,25 @@
-﻿using System.Text;
-
-class Program
+﻿partial class Program
 {
     static void Main(string[] args)
     {
         var enderecoDoArquivo = "contas.txt";
 
-        using (var fluxoDoArquivo = new FileStream(enderecoDoArquivo, FileMode.Open))
+        using (var fluxoDeArquivo = new FileStream(enderecoDoArquivo, FileMode.Open))
         {
-            var numeroDeBytesLidos = -1;
+            var leitor = new StreamReader(fluxoDeArquivo);
 
-            var buffer = new byte[1024];
+            //var linha = leitor.ReadLine(); // traz a primeira linha
 
+            var texto = leitor.ReadToEnd(); // traz o conteudo todo do arquivo
 
-            while (numeroDeBytesLidos < 0)
+            var numero = leitor.Read(); // traz o primeiro byte do arquivo
+
+            while (!leitor.EndOfStream) // le o arquivo parcialmente até o fim
             {
-                numeroDeBytesLidos = fluxoDoArquivo.Read(buffer, 0, 1024);
-                EscreverBuffer(buffer);
+                var linha = leitor.ReadLine();
+                Console.WriteLine(linha);
             }
 
-            fluxoDoArquivo.Close();
-
-            static void EscreverBuffer(byte[] buffer)
-            {
-
-                var utf8 = new UTF8Encoding();
-
-                var texto = utf8.GetString(buffer);
-                Console.Write(texto);
-                /*
-                foreach (var bytes in buffer)
-                {
-                    Console.Write(bytes);
-                    Console.Write(" ");
-                }*/
-
-
-            }
         }
-        
     }
 }
