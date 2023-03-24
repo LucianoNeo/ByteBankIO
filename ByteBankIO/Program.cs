@@ -6,34 +6,38 @@ class Program
     {
         var enderecoDoArquivo = "contas.txt";
 
-        var numeroDeBytesLidos = -1;
-
-        var fluxoDoArquivo = new FileStream(enderecoDoArquivo, FileMode.Open);
-
-        var buffer = new byte[1024];
-
-
-        while (numeroDeBytesLidos != 0)
+        using (var fluxoDoArquivo = new FileStream(enderecoDoArquivo, FileMode.Open))
         {
-            numeroDeBytesLidos = fluxoDoArquivo.Read(buffer, 0, 1024);
-            EscreverBuffer(buffer);
-        }
+            var numeroDeBytesLidos = -1;
 
-        static void EscreverBuffer(byte[] buffer)
-        {
+            var buffer = new byte[1024];
 
-            var utf8 = new UTF8Encoding();
 
-            var texto = utf8.GetString(buffer);
-            Console.Write(texto);
-            /*
-            foreach (var bytes in buffer)
+            while (numeroDeBytesLidos < 0)
             {
-                Console.Write(bytes);
-                Console.Write(" ");
-            }*/
+                numeroDeBytesLidos = fluxoDoArquivo.Read(buffer, 0, 1024);
+                EscreverBuffer(buffer);
+            }
+
+            fluxoDoArquivo.Close();
+
+            static void EscreverBuffer(byte[] buffer)
+            {
+
+                var utf8 = new UTF8Encoding();
+
+                var texto = utf8.GetString(buffer);
+                Console.Write(texto);
+                /*
+                foreach (var bytes in buffer)
+                {
+                    Console.Write(bytes);
+                    Console.Write(" ");
+                }*/
 
 
+            }
         }
+        
     }
 }
