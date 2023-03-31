@@ -1,4 +1,6 @@
-﻿partial class Program
+﻿using ByteBankIO;
+
+partial class Program
 {
     static void Main(string[] args)
     {
@@ -8,18 +10,36 @@
         {
             var leitor = new StreamReader(fluxoDeArquivo);
 
-            //var linha = leitor.ReadLine(); // traz a primeira linha
-
-            var texto = leitor.ReadToEnd(); // traz o conteudo todo do arquivo
-
-            var numero = leitor.Read(); // traz o primeiro byte do arquivo
-
-            while (!leitor.EndOfStream) // le o arquivo parcialmente até o fim
+            while (!leitor.EndOfStream)
             {
                 var linha = leitor.ReadLine();
-                Console.WriteLine(linha);
+                var contaCorrente = ConverterStringParaContaCorrente(linha);
+
+                var msg = $"Conta número:{contaCorrente.Numero} Ag:{contaCorrente.Agencia} Saldo:R${contaCorrente.Saldo} Titular: {contaCorrente.Titular.Nome}";
+
+                Console.WriteLine(msg);
+
             }
+        }
+        Console.ReadLine();
+    }
+
+
+    static ContaCorrente ConverterStringParaContaCorrente(string linha)
+        {
+            var campos = linha.Split(' ');
+            var agencia = int.Parse(campos[0]);
+            var numero = int.Parse(campos[1]);
+            var saldo = double.Parse(campos[2].Replace('.',','));
+            var titular = new Cliente();
+            titular.Nome = campos[3];
+
+            var resultado = new ContaCorrente(agencia, numero);
+            resultado.Depositar(saldo);
+            resultado.Titular = titular;
+
+            return resultado;
 
         }
-    }
+    
 }
