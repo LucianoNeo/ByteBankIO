@@ -19,4 +19,16 @@ internal partial class Program
             Console.WriteLine("Arquivo criado com sucesso!");
         }
     }
+
+    static void CriarArquivoComWriter()
+    {
+        var caminhoNovoArquivo = "contasExportadas.csv";
+
+        using (var fluxoDeArquivo = new FileStream(caminhoNovoArquivo, FileMode.Create))
+        using (var escritor = new StreamWriter(fluxoDeArquivo))
+        {
+            escritor.Write("455, 654, 10578.40, Luciano Santos");
+            Console.WriteLine("Arquivo criado com sucesso!");
+        }
+    }
 }

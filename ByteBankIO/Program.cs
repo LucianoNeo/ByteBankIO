@@ -2,7 +2,7 @@
 {
     private static void Main(string[] args)
     {
-        CriarArquivo();
+        CriarArquivoComWriter();
         Console.ReadLine();
     }
 }
