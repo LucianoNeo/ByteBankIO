@@ -20,7 +20,7 @@ internal partial class Program
         }
     }
 
-    static void CriarArquivoComWriter()
+    private static void CriarArquivoComWriter()
     {
         var caminhoNovoArquivo = "contasExportadas.csv";
 
@@ -29,6 +29,23 @@ internal partial class Program
         {
             escritor.Write("455, 654, 10578.40, Luciano Santos");
             Console.WriteLine("Arquivo criado com sucesso!");
+        }
+    }
+
+    private static void TestaEscrita()
+    {
+        var caminhoNovoArquivo = "teste.txt";
+
+        using (var fluxoDeArquivo = new FileStream(caminhoNovoArquivo, FileMode.Create))
+        using (var escritor = new StreamWriter(fluxoDeArquivo))
+        {
+            for (int i = 0; i < 10000; i++)
+            {
+                escritor.WriteLine($"Linha {i}");
+                escritor.Flush(); // Despeja o buffer para o Stream 
+                Console.WriteLine($"Gravando Linha {i}, tecle ENTER para continuar");
+                Console.ReadLine();
+            }
         }
     }
 }
