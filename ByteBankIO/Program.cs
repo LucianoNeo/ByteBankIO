@@ -2,7 +2,6 @@
 {
     private static void Main(string[] args)
     {
-        TestaEscrita();
-        Console.ReadLine();
+        LeituraBinaria();
     }
 }
