@@ -4,7 +4,7 @@ partial class Program
 {
     static void Main(string[] args)
     {
-        var enderecoDoArquivo = "contas.txt";
+        var enderecoDoArquivo = "contas.csv";
 
         using (var fluxoDeArquivo = new FileStream(enderecoDoArquivo, FileMode.Open))
         {
@@ -27,7 +27,7 @@ partial class Program
 
     static ContaCorrente ConverterStringParaContaCorrente(string linha)
         {
-            var campos = linha.Split(' ');
+            var campos = linha.Split(',');
             var agencia = int.Parse(campos[0]);
             var numero = int.Parse(campos[1]);
             var saldo = double.Parse(campos[2].Replace('.',','));
